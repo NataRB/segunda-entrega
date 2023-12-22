@@ -37,8 +37,6 @@ function eleccionJugador() {
 
 function mostrarResultado(resultado, jugador, computadora) {
     alert(`Elegiste ${jugador}. La computadora eligió ${computadora}. Resultado: ${resultado}`);
-    const resultadoDiv = document.getElementById('resultado');
-    resultadoDiv.innerHTML = `Elegiste ${jugador}. La computadora eligió ${computadora}. Resultado: ${resultado}`;
 }
 
 
