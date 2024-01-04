@@ -1,43 +1,47 @@
 const opciones = ['piedra', 'papel', 'tijera'];
 
-function eleccionComputadora() {
-    const indiceAleatorio = Math.floor(Math.random() * 3);
-    return opciones[indiceAleatorio];
-}
+const juego = {
+    opciones: opciones,
 
-function determinarGanador(jugador, computadora) {
-    if (jugador === computadora) {
-        console.log("Empate");
-        return "Empate";
-    } else if (
-        (jugador === 'piedra' && computadora === 'tijera') ||
-        (jugador === 'papel' && computadora === 'piedra') ||
-        (jugador === 'tijera' && computadora === 'papel')
-    ) {
-        console.log("¡Ganaste!");
-        return "¡Ganaste!";
-    } else {
-        console.log("¡Perdiste!");
-        return "¡Perdiste!";
+    eleccionComputadora: function() {
+        const indiceAleatorio = Math.floor(Math.random() * this.opciones.length);
+        return this.opciones[indiceAleatorio];
+    },
+
+    determinarGanador: function(jugador, computadora) {
+        if (jugador === computadora) {
+            console.log("Empate");
+            return "Empate";
+        } else if (this.ganaJugador(jugador, computadora)) {
+            console.log("¡Ganaste!");
+            return "¡Ganaste!";
+        } else {
+            console.log("¡Perdiste!");
+            return "¡Perdiste!";
+        }
+    },
+
+    ganaJugador: function(jugador, computadora) {
+        return (
+            (jugador === 'piedra' && computadora === 'tijera') ||
+            (jugador === 'papel' && computadora === 'piedra') ||
+            (jugador === 'tijera' && computadora === 'papel')
+        );
+    },
+
+    eleccionJugador: function() {
+        const eleccionUsuario = prompt("Elige: piedra, papel o tijera").toLowerCase();
+
+        if (!this.opciones.includes(eleccionUsuario)) {
+            alert("Elección inválida. Por favor, elige piedra, papel o tijera.");
+            return;
+        }
+
+        return eleccionUsuario;
     }
-}
+};
 
-function eleccionJugador() {
-    const eleccionUsuario = prompt("Elige: piedra, papel o tijera").toLowerCase();
-    
-    if (!opciones.includes(eleccionUsuario)) {
-        alert("Eleccion inválida. Por favor, elige piedra, papel o tijera.");
-        return;
-    }
+const eleccionUsuario = juego.eleccionJugador();
+const eleccionComputadora = juego.eleccionComputadora();
+juego.determinarGanador(eleccionUsuario, eleccionComputadora);
 
-    const computadora = eleccionComputadora();
-    const resultado = determinarGanador(eleccionUsuario, computadora);
-    mostrarResultado(resultado, eleccionUsuario, computadora);
-}
-
-function mostrarResultado(resultado, jugador, computadora) {
-    alert(`Elegiste ${jugador}. La computadora eligió ${computadora}. Resultado: ${resultado}`);
-}
-
-
-eleccionJugador();
